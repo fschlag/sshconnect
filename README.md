@@ -28,3 +28,12 @@ Sample config
 	 		}
 	 	]
 	}
+	
+How to use
+----------
+Save your configuration inside your home directory e.g. ~/.sshconnect
+/home/username/.sshconnect on Linux
+/Users/username/.sshconnect on Mac OS X
+
+Run the application. You're done!
+
