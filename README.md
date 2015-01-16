@@ -42,5 +42,5 @@ Run the application by executing
 
 alternatively you can create a symbolic link under /usr/bin 
 
-	ln -s /path/to/sshconnect.py /usr/bin/sshconnect
+	sudo ln -s /path/to/sshconnect.py /usr/bin/sshconnect
 
