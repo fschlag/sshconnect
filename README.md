@@ -33,8 +33,14 @@ How to use
 ----------
 Save your configuration inside your home directory e.g. ~/.sshconnect
 
-- /home/username/.sshconnect on Linux
-- /Users/username/.sshconnect on Mac OS X
+- /home/<your username>/.sshconnect on Linux
+- /Users/<your username>/.sshconnect on Mac OS X
 
-Run the application. You're done!
+Run the application by executing 
+
+	python sshconnect.py
+
+alternatively you can create a symbolic link under /usr/bin 
+
+	ln -s /path/to/sshconnect.py /usr/bin/sshconnect
 
