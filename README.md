@@ -5,11 +5,7 @@ Simple ssh bookmark tool that can be used to connect to ssh servers.
 I created it for my personal use but maybe it is useful for someone else. Feel free to use it. ;-)
 
 Tested on
-<<<<<<< HEAD
 - Mac OS X 10.10.x
-=======
-- Mac OS X 10.9 & 10.10.1
->>>>>>> FETCH_HEAD
 - Debian 7
 - CentOS 6.4
 
@@ -17,14 +13,14 @@ Requires Python 2.6 or greater.
 
 Changelog
 ----------
-### Version 0.2
+#### Version 0.2
 - Preselect a connection by its connection number
 - Print help message
 - Print version number
 - Improved error handling
 - Refactoring
 
-### Version 0.1
+#### Version 0.1
 - Initial release
 
 Sample config
