@@ -45,8 +45,8 @@ How to use
 ----------
 Save your configuration inside your home directory e.g. ~/.sshconnect
 
-- /home/<your username>/.sshconnect on Linux
-- /Users/<your username>/.sshconnect on Mac OS X
+- /home/&lt;your username&gt;/.sshconnect on Linux
+- /Users/&lt;your username&gt;/.sshconnect on Mac OS X
 
 Run the application by executing 
 
