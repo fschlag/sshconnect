@@ -34,7 +34,25 @@ CONFIG_FILE = HOME + "/.sshconnect"
 ##################################################
 # Do not change anything below here
 ##################################################
-def main():
+def main(argv):
+	preSelectedCon = -1;
+	try:
+		opts, args = getopt.getopt(argv, "hVc:", ["help","version","connection="])
+	except getopt.GetoptError:
+		print 'Wrong parameter(s)'
+		help()
+		sys.exit(2)
+
+	for opt, arg in opts:
+		if opt in ("-h", "--help"):
+			help()
+			sys.exit(0)
+		elif opt in ("-V", "--version"):
+			print APPNAME, VERSION
+			sys.exit(0)
+		elif opt in ("-c", "--connection"):
+			preSelectedCon = int(arg)
+
 	config = openConfig()
 	if config is not None:
 		con = preSelectedCon
@@ -42,6 +60,12 @@ def main():
 			con = chooseConnection(config)
 		if con is not None:
 			connectTo(con, config['connections'])
+
+def help():
+	print "Usage:", APPNAME, "[-c connection no]"
+	print " -h                This message"
+	print " -c, --connection  Preselect a connection by its number"
+	print " -V, --version     Print the version number"
 
 def openConfig():
 	try:
@@ -86,4 +110,4 @@ def connectTo(conNumber, connections):
 				call(["ssh", conn['connection']])
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main(sys.argv[1:]))
