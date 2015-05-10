@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-import sys
-import json
+import sys, getopt, json
 from subprocess import call
 from os.path import expanduser
 #
@@ -24,7 +23,8 @@ from os.path import expanduser
 # }
 #
 # Copyright 2014 by Florian Schlag
-# Version 0.1
+APPNAME = "sshconnect.py"
+VERSION = 0.2
 
 # Path to configuration file
 HOME = expanduser("~")
@@ -37,7 +37,9 @@ CONFIG_FILE = HOME + "/.sshconnect"
 def main():
 	config = openConfig()
 	if config is not None:
-		con = chooseConnection(config)
+		con = preSelectedCon
+		if con < 1:
+			con = chooseConnection(config)
 		if con is not None:
 			connectTo(con, config['connections'])
 
