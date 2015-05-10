@@ -88,6 +88,7 @@ def chooseConnection(config):
 		except ValueError:
 			print "Only digits are allowed! Please try again!"
 		except KeyboardInterrupt:
+			print ""
 			break
 	return None
 
@@ -104,10 +105,13 @@ def connectTo(conNumber, connections):
 	for conn in connections: # Find the selected connection
 		num += 1
 		if num == conNumber:
-			if len(conn['key']) > 1: # Connect with ssh key
-				call(["ssh", "-i" + conn['key'], conn['connection']])
-			else: # Connect without ssh key
-				call(["ssh", conn['connection']])
+			try:
+				if len(conn['key']) > 1: # Connect with ssh key
+					call(["ssh", "-i" + conn['key'], conn['connection']])
+				else: # Connect without ssh key
+					call(["ssh", conn['connection']])
+			except KeyboardInterrupt:
+				print "Connection aborted by user"
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))
