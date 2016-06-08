@@ -2,32 +2,12 @@
 import sys, getopt, json
 from subprocess import call
 from os.path import expanduser
-#
-#
-# Simple ssh bookmark tool
-# Configuration structure is:
-# 
-# {
-# 	"connections": [
-# 		{
-# 			"name": "",
-# 			"host": "",
-# 		},
-# 		{
-# 			"name": "",
-# 			"host": "",
-# 			"password": "",
-# 			"user": "",
-# 			"key": "",
-#			"port": "",
-#			"enableX11":""
-# 		}
-# 	]
-# }
-#
-# Copyright 2014 by Florian Schlag
+
+##############
+# SSHCONNECT #
+############## 
 APPNAME = "sshconnect.py"
-VERSION = 0.2
+VERSION = 0.3
 
 # Path to configuration file
 HOME = expanduser("~")
