@@ -13,6 +13,11 @@ Requires Python 2.6 or greater.
 
 Changelog
 ----------
+#### Version 0.3
+- Now its possible to define port to connection
+- Added X11 Forwarding resource
+
+
 #### Version 0.2
 - Preselect a connection by its connection number
 - Print help message
@@ -26,20 +31,25 @@ Changelog
 Sample config
 ----------
 
-	{
-		"connections": [
-	 		{
-	 			"name": "Name of first connection",
-	 			"connection": "username@server",
-	 			"key": ""
-	 		},
-	 		{
-	 			"name": "Name of second connection",
-	 			"connection": "username@server2",
-	 			"key": "/Path/to/identity/file"
-	 		}
-	 	]
-	}
+{
+	"connections": [
+ 		{
+ 			"name": "Name of first connection",
+ 			"host": "ip",
+ 			"password": "****",
+ 			"key": "/Path/to/identity/file"
+ 			"user": "login",
+			"port": "22222",
+			"enableX11":"Yes"
+ 		},
+ 		{
+ 			"name": "Name of second connection",
+ 			"connection": "username@server2",
+ 			"key": "/Path/to/identity/file"
+ 		}
+ 	]
+}
+
 	
 How to use
 ----------

@@ -2,8 +2,12 @@
 	"connections": [
  		{
  			"name": "Name of first connection",
- 			"connection": "username@server",
- 			"key": ""
+ 			"host": "ip",
+ 			"password": "****",
+ 			"key": "/Path/to/identity/file"
+ 			"user": "login",
+			"port": "22222",
+			"enableX11":"Yes"
  		},
  		{
  			"name": "Name of second connection",

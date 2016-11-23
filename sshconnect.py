@@ -2,34 +2,20 @@
 import sys, getopt, json
 from subprocess import call
 from os.path import expanduser
-#
-#
-# Simple ssh bookmark tool
-# Configuration structure is:
-# 
-# {
-# 	"connections": [
-# 		{
-# 			"name": "Name of first connection",
-# 			"connection": "username@server",
-# 			"key": ""
-# 		},
-# 		{
-# 			"name": "Name of second connection",
-# 			"connection": "username@server2",
-# 			"key": "/Path/to/identity/file"
-# 		}
-# 	]
-# }
-#
-# Copyright 2014 by Florian Schlag
+
+##############
+# SSHCONNECT #
+############## 
 APPNAME = "sshconnect.py"
-VERSION = 0.2
+VERSION = 0.3
 
 # Path to configuration file
 HOME = expanduser("~")
 CONFIG_FILE = HOME + "/.sshconnect"
 
+# Util Variables
+enableX11 = False
+verboseMode = False
 
 ##################################################
 # Do not change anything below here
@@ -37,9 +23,9 @@ CONFIG_FILE = HOME + "/.sshconnect"
 def main(argv):
 	preSelectedCon = -1;
 	try:
-		opts, args = getopt.getopt(argv, "hVc:", ["help","version","connection="])
+		opts, args = getopt.getopt(argv, "XhvVc:", ["help","version","connection=","X11"])
 	except getopt.GetoptError:
-		print 'Wrong parameter(s)'
+		print 'Wrong parameter(s): ' + ' '.join(argv)
 		help()
 		sys.exit(2)
 
@@ -52,7 +38,12 @@ def main(argv):
 			sys.exit(0)
 		elif opt in ("-c", "--connection"):
 			preSelectedCon = int(arg)
-
+		elif opt in ("-X"):
+			setX11(True)
+		elif opt in ("-v", "--verbose"):
+			setVerboseMode(True)
+			
+			
 	config = openConfig()
 	if config is not None:
 		con = preSelectedCon
@@ -61,11 +52,22 @@ def main(argv):
 		if con is not None:
 			connectTo(con, config['connections'])
 
+def setX11(value):
+	global enableX11
+	enableX11 = value
+
+def setVerboseMode(value):
+	global verboseMode
+	verboseMode = value
+
 def help():
 	print "Usage:", APPNAME, "[-c connection no]"
 	print " -h                This message"
 	print " -c, --connection  Preselect a connection by its number"
+	print " -X,  	 	 	  Enable X11 Forwarding"
+	print " -v, --verbose     Print the command "
 	print " -V, --version     Print the version number"
+
 
 def openConfig():
 	try:
@@ -106,10 +108,33 @@ def connectTo(conNumber, connections):
 		num += 1
 		if num == conNumber:
 			try:
-				if len(conn['key']) > 1: # Connect with ssh key
-					call(["ssh", "-i" + conn['key'], conn['connection']])
-				else: # Connect without ssh key
-					call(["ssh", conn['connection']])
+				
+				args = []
+				
+				# Connect with X11 forwarding
+				if enableX11 == True or 'enableX11' in conn:
+					args.append("-X");
+				# Connect with ssh key
+				if 'key' in conn:
+					args.append("-i" + conn['key']);
+				# Connect to specific port
+				if len(conn['port']) > 1:
+					args.append("-p" + conn['port']);
+				
+				#  Builds the SSH Command
+				command = "ssh " + ' '.join(args) + ' ' + conn['user']+"@"+conn['host']
+
+				# Print the command
+				if verboseMode == True:
+					print command
+
+				
+				call(command, shell=True)
+				
+
+				
+				#check_output(["ssh", ','.join(args), conn['connection']])
+				#call(command)
 			except KeyboardInterrupt:
 				print "Connection aborted by user"
 
