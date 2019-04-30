@@ -30,14 +30,14 @@ Changelog
 
 Sample config
 ----------
-
+```json
 {
 	"connections": [
  		{
  			"name": "Name of first connection",
  			"host": "ip",
  			"password": "****",
- 			"key": "/Path/to/identity/file"
+ 			"key": "/Path/to/identity/file",
  			"user": "login",
 			"port": "22222",
 			"enableX11":"Yes"
@@ -49,7 +49,7 @@ Sample config
  		}
  	]
 }
-
+```
 	
 How to use
 ----------
